@@ -2,3 +2,4 @@ Django
 gunicorn
 requests
 Pillow
+djangorestframework
