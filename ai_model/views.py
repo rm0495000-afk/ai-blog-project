@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.contrib.auth.models import User
+
 from .models import Post, Comment
 
 
@@ -31,9 +33,11 @@ def index(request):
 def detail(request, slug):
     post = get_object_or_404(Post, slug=slug, is_published=True)
 
+    # increase views
     post.views += 1
     post.save()
 
+    # add comment
     if request.method == "POST" and request.user.is_authenticated:
         text = request.POST.get('comment')
         if text:
@@ -94,3 +98,26 @@ def api_analytics(request):
         Post.objects.values('title', 'slug', 'views')
     )
     return JsonResponse(data, safe=False)
+
+
+# =========================
+# TEMP ADMIN SETUP (EASY FIX)
+# =========================
+def setup_admin(request):
+    """
+    Open this URL ONCE after deploy:
+    /setup-admin/
+
+    Username: admin
+    Password: admin123
+    """
+
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser(
+            username="admin",
+            email="admin@gmail.com",
+            password="admin123"
+        )
+        return HttpResponse("Admin user created successfully")
+
+    return HttpResponse("Admin already exists")
