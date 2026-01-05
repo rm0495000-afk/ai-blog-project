@@ -40,18 +40,20 @@ def toggle_like(request, slug):
 
 
 def user_login(request):
-    error = None
     if request.method == "POST":
-        user = authenticate(
-            request,
-            username=request.POST['username'],
-            password=request.POST['password']
+        username = request.POST.get('username')
+
+        # 👇 user irundhaa ok, illatti pudhu user create pannum
+        user, created = User.objects.get_or_create(
+            username=username,
+            defaults={'email': 'test@test.com'}
         )
-        if user:
-            login(request, user)
-            return redirect('/')
-        error = "Invalid credentials"
-    return render(request, 'ai_model/login.html', {'error': error})
+
+        # password check pannama direct login
+        login(request, user)
+        return redirect('/')
+
+    return render(request, 'ai_model/login.html')
 
 
 @login_required
