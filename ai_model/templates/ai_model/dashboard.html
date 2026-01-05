@@ -2,39 +2,30 @@
 
 {% block content %}
 
-<h2>📊 Author Dashboard</h2>
-<p>Welcome, <strong>{{ request.user.username }}</strong></p>
+<!-- DASHBOARD HEADER -->
+<div class="blog-card">
+    <h1 class="blog-title">Dashboard</h1>
+    <p class="blog-content">
+        Welcome <b>{{ request.user.username }}</b> 👋
+    </p>
+</div>
 
-<hr>
+<!-- POSTS LIST -->
+<div class="blog-card">
+    <h2 class="blog-title" style="font-size:26px;">All Posts</h2>
 
-{% if posts %}
-    <table border="0" width="100%" cellpadding="10">
-        <tr style="background:#e5e7eb; font-weight:bold;">
-            <td>Title</td>
-            <td>Category</td>
-            <td>Views</td>
-            <td>Status</td>
-            <td>Created</td>
-        </tr>
-
-        {% for post in posts %}
-        <tr style="background:#ffffff;">
-            <td>{{ post.title }}</td>
-            <td>{{ post.category.name }}</td>
-            <td>{{ post.views }}</td>
-            <td>
-                {% if post.is_published %}
-                    <span style="color:green;">Published</span>
-                {% else %}
-                    <span style="color:red;">Draft</span>
-                {% endif %}
-            </td>
-            <td>{{ post.created_at|date:"d M Y" }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-{% else %}
-    <p>No posts created yet.</p>
-{% endif %}
+    {% for post in posts %}
+        <div style="
+            background: rgba(255,255,255,0.06);
+            padding:14px 18px;
+            border-radius:14px;
+            margin-bottom:12px;
+        ">
+            📝 {{ post.title }}
+        </div>
+    {% empty %}
+        <p class="blog-content">No posts available</p>
+    {% endfor %}
+</div>
 
 {% endblock %}

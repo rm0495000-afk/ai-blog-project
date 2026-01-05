@@ -61,6 +61,12 @@ def user_logout(request):
 
 
 @login_required
+def dashboard(request):
+    posts = Post.objects.all().order_by('-created_at')
+    return render(request, 'ai_model/dashboard.html', {'posts': posts})
+
+
+@login_required
 def my_activity(request):
     comments = Comment.objects.filter(user=request.user)
     liked_posts = Post.objects.filter(likes=request.user)
