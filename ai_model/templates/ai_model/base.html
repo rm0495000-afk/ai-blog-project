@@ -2,77 +2,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>AI Blog Platform</title>
+<meta charset="UTF-8">
+<title>AI Blog Platform</title>
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="{% static 'ai_model/style.css' %}">
+<link rel="stylesheet" href="{% static 'ai_model/style.css' %}">
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f5f6fa;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+/* =====================
+   ROOT THEME COLORS
+===================== */
+:root{
+    --bg-main:#0f172a;
+    --bg-grad-1:#1e293b;
+    --bg-grad-2:#0f766e;
+    --glass-bg:rgba(255,255,255,0.08);
+    --glass-border:rgba(255,255,255,0.18);
+    --text-main:#ffffff;
+    --text-soft:#cbd5e1;
+    --accent:#22d3ee;
+}
 
-        nav {
-            background: #111827;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* =====================
+   GLOBAL
+===================== */
+*{
+    box-sizing:border-box;
+}
 
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin-right: 15px;
-            font-weight: bold;
-        }
+body{
+    margin:0;
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--text-main);
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top,#1e3a8a,transparent 60%),
+        linear-gradient(135deg,var(--bg-main),var(--bg-grad-1),var(--bg-grad-2));
+    background-attachment:fixed;
+}
 
-        nav a:hover {
-            color: #38bdf8;
-        }
+/* =====================
+   NAVBAR
+===================== */
+nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(18px);
+    background:var(--glass-bg);
+    border-bottom:1px solid var(--glass-border);
+    padding:18px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+/* LOGO */
+.logo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+.logo span{
+    color:var(--accent);
+    text-shadow:0 0 18px rgba(34,211,238,.9);
+}
 
-        .logout-btn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-weight: bold;
-            cursor: pointer;
-        }
+/* NAV LINKS */
+.nav-right a{
+    margin-left:22px;
+    text-decoration:none;
+    color:var(--text-soft);
+    font-weight:500;
+    position:relative;
+    transition:.3s;
+}
+.nav-right a:hover{
+    color:#fff;
+}
+.nav-right a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:0;
+    height:2px;
+    background:var(--accent);
+    transition:.3s;
+}
+.nav-right a:hover::after{
+    width:100%;
+}
 
-        .logout-btn:hover {
-            color: #38bdf8;
-        }
+/* =====================
+   CONTAINER
+===================== */
+.container{
+    padding:70px 10%;
+    min-height:75vh;
+}
 
-        .container {
-            padding: 30px;
-            min-height: 70vh;
-        }
+/* =====================
+   BLOG CARD (CENTER)
+===================== */
+.blog-card{
+    max-width:900px;
+    margin:0 auto 60px auto;
+    background:var(--glass-bg);
+    border:1px solid var(--glass-border);
+    border-radius:26px;
+    overflow:hidden;
+    backdrop-filter:blur(16px);
+    box-shadow:0 30px 70px rgba(0,0,0,.5);
+    transition:.4s;
+}
+.blog-card:hover{
+    transform:translateY(-10px);
+}
 
-        footer {
-            background: #111827;
-            color: #ccc;
-            text-align: center;
-            padding: 15px;
-            margin-top: 40px;
-        }
-    </style>
+/* BLOG IMAGE */
+.blog-image{
+    width:100%;
+    height:460px;
+    object-fit:cover;
+    display:block;
+}
+
+/* BLOG TITLE */
+.blog-title{
+    text-align:center;
+    font-size:34px;
+    font-weight:900;
+    margin:30px 20px 12px;
+}
+.blog-title a{
+    color:#fff;
+    text-decoration:none;
+}
+.blog-title a:hover{
+    color:var(--accent);
+}
+
+/* BLOG CONTENT */
+.blog-content{
+    text-align:center;
+    color:var(--text-soft);
+    font-size:17px;
+    line-height:1.9;
+    padding:0 50px 35px;
+}
+
+/* =====================
+   BUTTON
+===================== */
+.btn{
+    background:linear-gradient(135deg,#22d3ee,#38bdf8);
+    color:#020617;
+    padding:12px 26px;
+    border:none;
+    border-radius:16px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.3s;
+}
+.btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 28px rgba(34,211,238,.9);
+}
+
+/* =====================
+   FOOTER
+===================== */
+footer{
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(12px);
+    text-align:center;
+    padding:24px;
+    color:var(--text-soft);
+    font-size:14px;
+}
+</style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
+<!-- ================= NAVBAR ================= -->
 <nav>
-    <div>
-        <a href="/">AI BLOG</a>
+    <div class="logo">
+        <span>AI</span> Blog
     </div>
 
     <div class="nav-right">
@@ -82,26 +198,24 @@
 
         {% if user.is_authenticated %}
             <a href="/dashboard/">Dashboard</a>
-
-            <form method="post" action="/admin/logout/">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">Logout</button>
-            </form>
+            <a href="/my-activity/">My Activity</a>
+            <a href="{% url 'ai_model:logout' %}">Logout</a>
         {% else %}
-            <a href="/admin/login/">Login</a>
+            <a href="{% url 'ai_model:login' %}">User Login</a>
+            <a href="/admin/">Admin</a>
         {% endif %}
     </div>
 </nav>
 
-<!-- CONTENT -->
+<!-- ================= CONTENT ================= -->
 <div class="container">
     {% block content %}
     {% endblock %}
 </div>
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
 <footer>
-    <p>© 2026 AI Blog Platform | Django Project</p>
+    © 2026 AI Blog Platform • Premium Design
 </footer>
 
 </body>

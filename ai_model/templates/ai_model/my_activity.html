@@ -1,0 +1,65 @@
+{% extends 'ai_model/base.html' %}
+
+{% block content %}
+
+<div class="blog-card">
+    <h1 class="blog-title">My Activity</h1>
+    <p class="blog-content">
+        Your interactions on this platform – comments & liked posts
+    </p>
+</div>
+
+<!-- ================= MY COMMENTS ================= -->
+<div class="blog-card">
+    <h2 class="blog-title" style="font-size:26px;">My Comments</h2>
+
+    {% if comments %}
+        {% for c in comments %}
+            <div style="
+                background: rgba(255,255,255,0.06);
+                border-radius:14px;
+                padding:15px 20px;
+                margin-bottom:15px;
+            ">
+                <p style="margin:0 0 8px 0;">
+                    💬 {{ c.text }}
+                </p>
+                <small style="color:#cbd5e1;">
+                    On post: <b>{{ c.post.title }}</b>
+                </small>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align:center;color:#cbd5e1;">
+            You haven’t added any comments yet.
+        </p>
+    {% endif %}
+</div>
+
+<!-- ================= LIKED POSTS ================= -->
+<div class="blog-card">
+    <h2 class="blog-title" style="font-size:26px;">Posts I Liked</h2>
+
+    {% if liked_posts %}
+        {% for p in liked_posts %}
+            <div style="
+                background: rgba(255,255,255,0.06);
+                border-radius:14px;
+                padding:15px 20px;
+                margin-bottom:15px;
+            ">
+                ❤️
+                <a href="{% url 'ai_model:detail' p.slug %}"
+                   style="color:#22d3ee;text-decoration:none;font-weight:600;">
+                    {{ p.title }}
+                </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align:center;color:#cbd5e1;">
+            You haven’t liked any posts yet.
+        </p>
+    {% endif %}
+</div>
+
+{% endblock %}

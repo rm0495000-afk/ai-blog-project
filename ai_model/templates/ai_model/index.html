@@ -1,25 +1,25 @@
 {% extends 'ai_model/base.html' %}
+
 {% block content %}
 
-<form method="get">
-    <input type="text" name="q" placeholder="Search..." value="{{ query }}">
-    <button type="submit">Search</button>
-</form>
-
-<h3>🔥 Trending</h3>
-{% for p in trending_posts %}
-<p>{{ p.title }} ({{ p.views }} views)</p>
-{% endfor %}
-<hr>
-
 {% for post in posts %}
-<div>
-    <img src="{{ post.image.url }}" width="300">
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.ai_summary }}</p>
-    <a href="{% url 'ai_model:detail' post.slug %}">Read More</a>
+<div class="blog-card">
+
+    {% if post.image %}
+        <img src="{{ post.image.url }}" class="blog-image">
+    {% endif %}
+
+    <h2 class="blog-title">
+        <a href="{% url 'ai_model:detail' post.slug %}">
+            {{ post.title }}
+        </a>
+    </h2>
+
+    <div class="blog-content">
+        {{ post.content|truncatewords:30 }}
+    </div>
+
 </div>
-<hr>
 {% endfor %}
 
 {% endblock %}
