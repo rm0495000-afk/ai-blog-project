@@ -9,7 +9,8 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('my-activity/', views.my_activity, name='my_activity'),
     path('dashboard/', views.dashboard, name='dashboard'),
-
+    path('about/', views.about_page, name='about'),
+    path('contact/', views.contact_page, name='contact'),
     path('like/<slug:slug>/', views.toggle_like, name='like'),
     path('<slug:slug>/', views.detail, name='detail'),
 ]
