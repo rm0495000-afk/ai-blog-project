@@ -1,27 +1,43 @@
 {% extends 'ai_model/base.html' %}
 
-{% block title %}Contact Us | AI Blog{% endblock %}
-
 {% block content %}
 <h1>Contact Us</h1>
 
 <p>
-Have questions or suggestions? Feel free to reach out to us.
+Have questions, feedback, or business inquiries? Reach out to us.
 </p>
 
+<!-- 📍 MAP SECTION -->
+<h3>Our Location</h3>
+<div style="margin-bottom:20px;">
+    <iframe
+        src="https://www.google.com/maps?q=Chennai,%20Tamil%20Nadu&output=embed"
+        width="100%"
+        height="250"
+        style="border:0;border-radius:10px;"
+        allowfullscreen=""
+        loading="lazy">
+    </iframe>
+</div>
+
+<!-- 📩 CONTACT FORM -->
 <form method="post" style="max-width:500px;">
     {% csrf_token %}
 
     <label>Name</label><br>
-    <input type="text" name="name" required style="width:100%;padding:8px;"><br><br>
+    <input type="text" name="name" required
+           style="width:100%;padding:8px;"><br><br>
 
     <label>Email</label><br>
-    <input type="email" name="email" required style="width:100%;padding:8px;"><br><br>
+    <input type="email" name="email" required
+           style="width:100%;padding:8px;"><br><br>
 
     <label>Message</label><br>
-    <textarea name="message" rows="4" required style="width:100%;padding:8px;"></textarea><br><br>
+    <textarea name="message" rows="4" required
+              style="width:100%;padding:8px;"></textarea><br><br>
 
-    <button type="submit" style="padding:10px 20px;background:#111827;color:#fff;border:none;">
+    <button type="submit"
+            style="padding:10px 20px;background:#111827;color:#fff;border:none;">
         Send Message
     </button>
 </form>
@@ -32,4 +48,5 @@ Have questions or suggestions? Feel free to reach out to us.
         <p style="color:green;">{{ message }}</p>
     {% endfor %}
 {% endif %}
+
 {% endblock %}
