@@ -7,7 +7,9 @@ from .models import Post, Comment
 
 def index(request):
     posts = Post.objects.filter(is_published=True).order_by('-created_at')
+    print(posts)  # DEBUG
     return render(request, 'ai_model/index.html', {'posts': posts})
+
 
 
 def detail(request, slug):
