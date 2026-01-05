@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 from .models import Post, Comment
 
@@ -28,16 +29,14 @@ def index(request):
 
 
 # =========================
-# DETAIL PAGE ( /<slug>/ )
+# DETAIL PAGE
 # =========================
 def detail(request, slug):
     post = get_object_or_404(Post, slug=slug, is_published=True)
 
-    # increase views
     post.views += 1
     post.save()
 
-    # add comment
     if request.method == "POST" and request.user.is_authenticated:
         text = request.POST.get('comment')
         if text:
@@ -56,7 +55,7 @@ def detail(request, slug):
 
 
 # =========================
-# DASHBOARD ( /dashboard/ )
+# DASHBOARD
 # =========================
 @login_required
 def dashboard(request):
@@ -65,7 +64,7 @@ def dashboard(request):
 
 
 # =========================
-# LIKE / UNLIKE ( /like/<slug>/ )
+# LIKE / UNLIKE
 # =========================
 @login_required
 def toggle_like(request, slug):
@@ -101,17 +100,34 @@ def api_analytics(request):
 
 
 # =========================
-# TEMP ADMIN SETUP (EASY FIX)
+# ABOUT PAGE
+# =========================
+def about_page(request):
+    return render(request, 'ai_model/about.html')
+
+
+# =========================
+# CONTACT PAGE
+# =========================
+def contact_page(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        if name and email and message:
+            messages.success(
+                request,
+                "Thank you for contacting us. We will get back to you soon."
+            )
+
+    return render(request, 'ai_model/contact.html')
+
+
+# =========================
+# TEMP ADMIN SETUP (OPEN ONCE)
 # =========================
 def setup_admin(request):
-    """
-    Open this URL ONCE after deploy:
-    /setup-admin/
-
-    Username: admin
-    Password: admin123
-    """
-
     if not User.objects.filter(username="admin").exists():
         User.objects.create_superuser(
             username="admin",
