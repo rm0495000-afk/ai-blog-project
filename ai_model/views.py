@@ -68,6 +68,12 @@ def dashboard(request):
     return render(request, 'ai_model/dashboard.html', {'posts': posts})
 
 
+def about_page(request):
+    return render(request, 'ai_model/about.html')
+
+def contact_page(request):
+    return render(request, 'ai_model/contact.html')
+
 @login_required
 def my_activity(request):
     comments = Comment.objects.filter(user=request.user)
