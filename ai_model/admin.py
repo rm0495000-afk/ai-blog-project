@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Category, Post
+from unfold.admin import ModelAdmin   # 🔥 IMPORTANT
+from .models import Post
 
-admin.site.register(Category)
-admin.site.register(Post)
+@admin.register(Post)
+class PostAdmin(ModelAdmin):           # 🔥 IMPORTANT
+    list_display = ("title",)

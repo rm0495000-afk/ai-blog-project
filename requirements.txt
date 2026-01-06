@@ -1,9 +1,6 @@
 Django>=4.2,<5.0
-djangorestframework
 gunicorn
 whitenoise
+django-unfold
 Pillow
 requests
-
-# Modern admin (Jazzmin alternative)
-django-unfold
