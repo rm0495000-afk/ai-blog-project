@@ -19,7 +19,7 @@ ALLOWED_HOSTS = ['*']   # deploy-ku mandatory
 # APPLICATIONS
 # =========================
 INSTALLED_APPS = [
-    "unfold",   # MUST be before django.contrib.admin
+    "unfold",
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -28,8 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # your apps
-    "aimodel",
+    "ai_model",   # ✅ EXACT folder name
 ]
 
 
