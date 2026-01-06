@@ -19,8 +19,9 @@ ALLOWED_HOSTS = ['*']   # deploy-ku mandatory
 # APPLICATIONS
 # =========================
 INSTALLED_APPS = [
-    "jazzmin",                 # ✅ MUST be first
-    "django.contrib.admin",    # ✅ ONLY ONCE
+    "admin_interface",
+    "colorfield",          # REQUIRED
+    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -30,6 +31,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "ai_model",
 ]
+
 
 
 
