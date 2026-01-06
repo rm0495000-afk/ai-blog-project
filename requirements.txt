@@ -3,6 +3,7 @@ djangorestframework
 gunicorn
 whitenoise
 Pillow
-django-admin-interface
-django-colorfield
 requests
+
+# Modern admin (Jazzmin alternative)
+django-unfold
