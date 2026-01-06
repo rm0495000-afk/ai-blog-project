@@ -3,6 +3,6 @@ djangorestframework
 gunicorn
 whitenoise
 Pillow
-
 django-admin-interface
 django-colorfield
+requests
