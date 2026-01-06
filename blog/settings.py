@@ -19,8 +19,8 @@ ALLOWED_HOSTS = ['*']   # deploy-ku mandatory
 # APPLICATIONS
 # =========================
 INSTALLED_APPS = [
-    "admin_interface",
-    "colorfield",          # REQUIRED
+    "unfold",   # MUST be before django.contrib.admin
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -28,9 +28,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    "rest_framework",
-    "ai_model",
+    # your apps
+    "aimodel",
 ]
+
 
 
 
