@@ -2,23 +2,120 @@
 
 {% block content %}
 
-<div class="blog-card" style="max-width:420px;">
+<style>
+/* =========================
+   LOGIN CARD – INLINE PRO UI
+========================= */
+
+.blog-card {
+    max-width: 420px;
+    margin: 70px auto;
+    padding: 35px 30px;
+    background: linear-gradient(145deg, #111827, #020617);
+    border-radius: 20px;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.45);
+    animation: fadeUp 0.6s ease;
+}
+
+.blog-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: #f9fafb;
+    margin-bottom: 25px;
+}
+
+/* INPUTS */
+.blog-card input {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    border: 1px solid #1e293b;
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.blog-card input::placeholder {
+    color: #94a3b8;
+}
+
+.blog-card input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.25);
+}
+
+/* BUTTON */
+.blog-card .btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+    color: #020617;
+    transition: all 0.25s ease;
+}
+
+.blog-card .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(99,102,241,0.45);
+}
+
+.blog-card .btn:active {
+    transform: scale(0.96);
+}
+
+/* ERROR */
+.blog-card .error {
+    color: #f87171;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<div class="blog-card">
 
     <h2 class="blog-title">User Login</h2>
 
     {% if error %}
-        <p style="color:#f87171;text-align:center;">{{ error }}</p>
+        <p class="error">{{ error }}</p>
     {% endif %}
 
-    <form method="post">
+    <form method="post" id="loginForm">
         {% csrf_token %}
-        <input name="username" placeholder="Username"
-               style="width:100%;padding:12px;border-radius:10px;margin-bottom:15px;">
-        <input type="password" name="password" placeholder="Password"
-               style="width:100%;padding:12px;border-radius:10px;margin-bottom:20px;">
-        <button class="btn" style="width:100%;">Login</button>
+        <input name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button class="btn" id="loginBtn">Login</button>
     </form>
 
 </div>
+
+<script>
+/* BUTTON ACTION FEEL – NO BACKEND CHANGE */
+document.getElementById("loginForm").addEventListener("submit", function () {
+    const btn = document.getElementById("loginBtn");
+    btn.innerText = "Logging in...";
+    btn.style.opacity = "0.85";
+});
+</script>
 
 {% endblock %}
